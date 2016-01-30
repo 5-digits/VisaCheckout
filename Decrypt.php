@@ -1,7 +1,7 @@
 <?php
 
 
-$response = json_decode($_POST['json']);
+$response = json_decode($_POST['json'], true);
 // var_dump($response);
 // $response = $_POST['json_string'];
 
@@ -13,22 +13,25 @@ $secret = '"QQJXpMmdgHNW2v3k5$yqAbLvy}IGM1OLlFeZhO0P"';
 // $opts = getopt("k:d:");
 // $rawPayload = decryptPayload($secret, $opts["k"], $opts["d"]);
 
-error_log("encKey is: " . print_r($response->encKey), true);
+// error_log("encKey is: " . print_r($response->encKey), true);
 
-// $rawPayload = decryptPayload($secret, $responseArray["encKey"], $responseArray["encPaymentData"]);
+$rawPayload = decryptPayload($secret, $response['encKey'], $response['encPaymentData']);
 
-$rawPayload = decryptPayload($secret, $response->encKey, $response->encPaymentData);
+// $rawPayload = decryptPayload($secret, $response->encKey, $response->encPaymentData);
 
-$encodeRawPayload = json_encode($rawPayload);
+error_log("rawPayload is: " . $rawPayload);
 
 // print "Decrypted payload: " . $rawPayload . "\n";
 
-error_log("Decrypted payload: " . $encodeRawPayload);
+
 
 function decryptPayload($key, $wrappedKey, $payload) {
   print "Secret: " . $key . "\n";
+  error_log("Secret: " . $key);
   print "encKey: " . $wrappedKey . "\n";
-  print "encPaymentData&colon; " . $payload . "\n";   
+  error_log("encKey: " . $wrappedKey);
+  print "encPaymentData: " . $payload . "\n";  
+  error_log("encPaymentData: " . $payload); 
   $unwrappedKey = decrypt($key, $wrappedKey);   
   print "Unwrapped Key: " . $unwrappedKey . "\n";
   return decrypt($unwrappedKey, $payload);  
