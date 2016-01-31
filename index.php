@@ -8,16 +8,17 @@ function onVisaCheckoutReady() {
 
   V.init( {
     apikey: "42TD3SKIK62N6C89LDSD13W2kI9qtngtWRF6IWeQme5yvNpuQ",
-   //  paymentRequest:{
-   //  	currencyCode: "USD",
-   //  	total: "10.00"
-  	// }
+  
     settings: {
       logoUrl: "http://demo.visacheckout.com/presidio/wp-content/uploads/2014/09/logo.png"
+    },
+      paymentRequest:{
+      currencyCode: "USD",
+      total: "10.00"
     }
   });
   V.on("payment.success", function(payment) {
-    document.write(JSON.stringify(payment));
+    // document.write(JSON.stringify(payment));
 
     $.ajax({
       type: 'POST',

@@ -9,7 +9,7 @@ error_log("Response is: " . print_r($response, true));
 
 // $responseArray = (array)$response;
 
-$secret = '"QQJXpMmdgHNW2v3k5$yqAbLvy}IGM1OLlFeZhO0P"';
+$secret = 'QQJXpMmdgHNW2v3k5$yqAbLvy}IGM1OLlFeZhO0P';
 // $opts = getopt("k:d:");
 // $rawPayload = decryptPayload($secret, $opts["k"], $opts["d"]);
 
@@ -20,6 +20,8 @@ $rawPayload = decryptPayload($secret, $response['encKey'], $response['encPayment
 // $rawPayload = decryptPayload($secret, $response->encKey, $response->encPaymentData);
 
 error_log("rawPayload is: " . $rawPayload);
+
+echo json_encode($rawPayload);
 
 // print "Decrypted payload: " . $rawPayload . "\n";
 
@@ -40,9 +42,13 @@ function decryptPayload($key, $wrappedKey, $payload) {
 function decrypt($key, $data) {    
   $decodedData = base64_decode($data);  
    // TODO: Check that data is at least bigger than HMAC + IV length    
-   $hmac = substr($decodedData, 0, 32);  
+   error_log("key in Decrypt is: " . $key);
+   $hmac = substr($decodedData, 0, 32);
+   error_log("hmac in Decrypt is: " . $hmac);  
    $iv = substr($decodedData, 32, 16);  
-   $data = substr($decodedData, 48);   
+   error_log("iv in Decrypt is: " . $iv); 
+   $data = substr($decodedData, 48);
+   error_log("data in Decrypt is: " . $data);    
    if ($hmac != hmac($key, $iv . $data)) {    
      // TODO: Handle HMAC validation failure      
      return 0;   
