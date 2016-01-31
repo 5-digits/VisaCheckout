@@ -24,7 +24,14 @@ function onVisaCheckoutReady() {
       type: 'POST',
       url: 'Decrypt.php',
       data: {json: JSON.stringify(payment)},
-      dataType: 'json'
+      dataType: 'json',
+      success: function(data){
+        console.log("Step 1");
+        alert("Successful callback");
+      }
+
+    })
+  
     });
 
     // var str_json = "json_string=" + (JSON.stringify(payment))
@@ -37,7 +44,7 @@ function onVisaCheckoutReady() {
 
     // request.send(str_json)
 
-  });
+ 
 
   V.on("payment.cancel", function(payment)
   {alert(JSON.stringify(payment)); });
