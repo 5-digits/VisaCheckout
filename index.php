@@ -1,5 +1,7 @@
 <html>
+<!-- <pre> -->
 <head>
+
 <!-- Visa Checkout JavaScript function -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -21,30 +23,21 @@ function onVisaCheckoutReady() {
     // document.write(JSON.stringify(payment));
 
     $.ajax({
-      type: 'POST',
-      url: 'Decrypt.php',
-      data: {json: JSON.stringify(payment)},
-      dataType: 'json',
-      success: function(data){
-        console.log("Step 1");
-        alert("Successful callback");
+        type: 'POST',
+        url: 'Decrypt.php',
+        data: {json: JSON.stringify(payment)},
+        dataType: 'json',
+        success: function(data){
+          // var response = JSON.stringify(data);
+          document.write(data);
+          alert("Successful callback");
+        },
+        error: function() {
+          console.log('Cannot retrieve data.');
       }
-
     })
   
     });
-
-    // var str_json = "json_string=" + (JSON.stringify(payment))
-
-    // request = new XMLHttpRequestObject()
-
-    // request.open("POST", "Decrypt.php", true)
-
-    // request.setRequestHeader("Content-type", "application/json")
-
-    // request.send(str_json)
-
- 
 
   V.on("payment.cancel", function(payment)
   {alert(JSON.stringify(payment)); });
@@ -54,7 +47,9 @@ function onVisaCheckoutReady() {
 
 
 </script>
+
 </head>
+<!-- </pre> -->
 <body>
 <!-- Visa Checkout button img tag -->
 <img class="v-button" role="button" tabindex="0" src="https://sandbox.secure.checkout.visa.com/wallet-services-web/xo/button.png" alt="Visa Checkout" />
