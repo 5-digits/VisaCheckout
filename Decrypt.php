@@ -1,6 +1,5 @@
 <?php
 
-
 $response = json_decode($_POST['json'], true);
 
 error_log("Response is: " . print_r($response, true));
